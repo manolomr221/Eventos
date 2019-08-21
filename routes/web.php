@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/Admin/registrar', function(){
+    return view('/Admin/crearEvento');
+} )->middleware('Administrador');
+
+
+
+Route::post('/Admin/registrar/evento',  'AdminController@crearEvento')->middleware('Administrador');
