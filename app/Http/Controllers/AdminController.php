@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
@@ -26,7 +27,10 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-  
+    public function eventos(){
+        $eventos = DB::table('eventos')->select('*')->get();
+       return view('/Admin/eventos',['eventos'=>$eventos]);
+    }
 
      public function crearEvento(Request $request){
          DB::table('eventos')->insert([
@@ -37,7 +41,8 @@ class AdminController extends Controller
             'categoria' => $request->categoria,
         ]);
      
-        return redirect()->route('login');
+        return redirect()->route('eventos');
      }
 
+     
 }

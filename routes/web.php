@@ -26,3 +26,4 @@ Route::get('/Admin/registrar', function(){
 
 
 Route::post('/Admin/registrar/evento',  'AdminController@crearEvento')->middleware('Administrador');
+Route::get('/eventos', 'AdminController@eventos')->name('eventos');
