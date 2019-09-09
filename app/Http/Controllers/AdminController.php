@@ -44,5 +44,42 @@ class AdminController extends Controller
         return redirect()->route('eventos');
      }
 
+     public function eliminarEvento(Request $request, $id)
+     {
+         DB::table('eventos')->where('id',$id)->delete();
+          return redirect()->action('AdminController@eventos');
+     }
+
+     //funciones para editar eventos editarEvento, guardarCambiosEvento
+     public function editarEvento(Request $request, $id)
+     {
+        $evento= DB::table('eventos')->select('*')->where('id', $id)->first();    
+        return view('/Admin/editarEvento')->with('eventos',$evento);      
+    }    
+    public function guardarCambiosEvento(Request $request, $id)
+    {
+        if($request->fechaNueva == null || $request->fechaNueva == "")
+        {
+            DB::table('eventos')->where('id',$id)->update([
+                'nombre' => $request->nombre,
+                'descripcion'  => $request->descripcion,
+                'fecha' => $request->fecha,
+                'categoria'   => $request->categoria,
+                ]);
+                $evento = DB::table('eventos')->select('*')->where('id',$id)->first();
+                return redirect()->action('AdminController@eventos');
+        }
+        else
+        {
+            DB::table('eventos')->where('id',$id)->update([
+                'nombre' => $request->nombre,
+                'descripcion'  => $request->descripcion,
+                'fecha' => $request->fechaNueva,
+                'categoria'   => $request->categoria,
+                ]);
+                $evento = DB::table('eventos')->select('*')->where('id',$id)->first();
+                return redirect()->action('AdminController@eventos');
+        }    
+    }
      
 }
