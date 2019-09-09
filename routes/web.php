@@ -27,3 +27,9 @@ Route::get('/Admin/registrar', function(){
 
 Route::post('/Admin/registrar/evento',  'AdminController@crearEvento')->middleware('Administrador');
 Route::get('/eventos', 'AdminController@eventos')->name('eventos');
+//ruta para eliminar evento
+Route::post('/Admin/evento/{id}/eliminar', 'AdminController@eliminarEvento')->middleware('Administrador');
+//ruta para editar evento
+Route::get('/Admin/evento/{id}/editar','AdminController@editarEvento')->middleware('Administrador');
+Route::post('/Admin/evento/{id}/guardarCambios','AdminController@guardarCambiosEvento')->middleware('Administrador');
+
