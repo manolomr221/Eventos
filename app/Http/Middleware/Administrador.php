@@ -22,7 +22,7 @@ class Administrador
                 return redirect()->guest('login');
             }
             } else if (!Auth::guard($guard)->user()->is_admin) {
-                return redirect('/')->with('error','VAYA VAYA VAYA Hijo de tu puta madre, pa que quieres entrar aqui');
+                return redirect('/')->with('error','No puede entrar como Administrador');
             }
             return $next($request);
 
