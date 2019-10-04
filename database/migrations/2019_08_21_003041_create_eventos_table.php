@@ -20,6 +20,8 @@ class CreateEventosTable extends Migration
             $table->dateTime('fecha');
             $table->string('foto',200)->nullable();
             $table->string('categoria');
+            $table->string('lugar');
+            $table->integer('costo');
 
         });
     }

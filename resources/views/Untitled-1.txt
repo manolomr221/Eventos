@@ -1,0 +1,205 @@
+
+    <div class="col-sm-9">
+        <div>
+            <h1 class="title" style="text-align:center">eventos</h1>
+        </div>
+        <div>
+            <div class="col-10">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="texto" placeholder="Ingrese nombre">
+                    <div class="input-group-append"><span class="input-group-text">Buscar</span></div>
+                </div>
+                <div id="resultados" class="bg-light border"></div>
+            </div>
+        </div>
+        <div >
+            <div class="panel panel-default">
+                <div class="panel-body" id="datos">
+              
+                   <!--
+                    <table class="table table-hover" style="display: none" id="tabla">
+                        <thread>
+                            <tr>
+                                <th>#</th>
+                                <th>nombre</th>
+                                <th>descripcion</th>
+                                <th>fecha</th>
+                                <th>categoria</th>
+                                <th>Eliminar</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                         
+                            @foreach($eventos as $evento)
+                                <tr>
+                                    <th>{{$evento->id}}</th>
+                                    <th>{{$evento->nombre}}</th>
+                                    <th>{{$evento->descripcion}}</th>
+                                    <th>{{$evento->fecha}}</th>
+                                    <th>{{$evento->categoria}}</th>
+                                    <th><i class="fa fa-trash" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:red"></i></th>
+                                    <th><i class="fa fa-pencil-square" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:orange"></i></th>
+                                </tr>
+                            @endforeach
+                            
+                            
+                        </tbody>
+                    </table>
+                    -->
+                    @if (count($eventos))
+
+<table class="table table-hover" id="registros">
+                <thread>
+                    <tr>
+                        <th>#</th>
+                        <th>nombre</th>
+                        <th>descripcion</th>
+                        <th>fecha</th>
+                        <th>categoria</th>
+                        <th>Eliminarr</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thread>
+                <tbody>
+                
+                    @foreach($eventos as $evento)
+                        <tr>
+                            <th>{{$evento->id}}</th>
+                            <th>{{$evento->nombre}}</th>
+                            <th>{{$evento->descripcion}}</th>
+                            <th>{{$evento->fecha}}</th>
+                            <th>{{$evento->categoria}}</th>
+                            <th><i class="fa fa-trash" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:red"></i></th>
+                            <th><i class="fa fa-pencil-square" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:orange"></i></th>
+                        </tr>
+                    @endforeach
+                    
+                </tbody>
+            </table>
+            @else
+            <table class="table table-hover" id="registros">
+                <thread>
+                    <tr>
+                        <th>#</th>
+                        <th>nombre</th>
+                        <th>descripcion</th>
+                        <th>fecha</th>
+                        <th>categoria</th>
+                        <th>Eliminarr</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thread>
+                <tbody>
+                
+                   
+                        <tr>
+                            <th>No hay registros</th>
+                           
+                        </tr>
+                  
+                    
+                </tbody>
+            </table>
+
+@endif
+   
+                    
+    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-8" id="contenedor" style="">
+                <!--      @include('Admin.paginas') -->
+                    </div>
+    <div id="cargando" hidden><h1>CARGANDO...</h1></div>
+        <br><br> 
+    
+
+    
+
+<!-- modal seguridad eliminar evento-->
+<div class="modal fade" id="eliminarEvento" tabindex="-1" role="dialog" aria-labelledby="Eliminar Evento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+           <p class="lead" style="text-align:center;">¿Estas seguro de eliminar éste Evento?</p>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="" id="eliminarEvento">
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-danger" style="width:240px;">SI</button>
+        </form>
+        <button type="button" class="btn btn-success" style="width:50%;" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+//ultimo agregado
+let pagina = 2
+const cargando = document.getElementById("cargando")
+window.onscroll = () => {
+    cargando.removeAttribute("hidden")
+    if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight)
+    {
+        fetch(`/eventos/paginacion?page=${pagina}`,{
+            method: 'get'
+        })
+        .then(response => response.text() )
+        .then(html => {
+            cargando.setAttribute('hidden', '')
+            document.getElementById("contenedor").innerHTML += html
+            pagina ++
+
+        })
+
+        .catch(error => console.log(error))
+    }
+
+}
+
+window.addEventListener('load',function(){
+        document.getElementById("texto").addEventListener("keyup", function(){
+            console.log(document.getElementById("texto").value)
+            if((document.getElementById("texto").value.length)>=1)
+               {
+                fetch(`/eventos/buscador?texto=${document.getElementById("texto").value}`,{
+                    method:'get'
+                })
+                .then(response  =>  response.text() )
+                .then(html      =>  {   document.getElementById("resultados").innerHTML = html  })
+            // var  element= document.getElementById("datos")
+            //element.style.display = 'none'
+               }
+              
+            else
+               {
+                if((document.getElementById("texto").value.length)==0 || document.getElementById("texto").value ===""){
+                 
+                // document.getElementById("datos").style.display="none"
+                 
+                document.getElementById("resultados").innerHTML = "";
+                }
+                //document.getElementById("resultados").innerHTML = $reg
+               }
+        })
+    });  
+
+
+
+
+    $(document).ready(function(){
+        $('i.fa-pencil-square').click(function(){
+           window.location.href = '/Admin/evento/'+$(this).attr('value')+'/editar';
+        });
+         $('i.fa-trash').click(function(){
+           $('#eliminarEvento').modal('show');
+           $('form#eliminarEvento').attr('action','/Admin/evento/'+$(this).attr('value')+'/eliminar');
+         });
+    });
+</script>

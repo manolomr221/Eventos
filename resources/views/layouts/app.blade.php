@@ -18,13 +18,26 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  
+ 
+<!--Font Awesome (added because you use icons in your prepend/append)-->
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <style>
-
 #logout{  color:black;}
+#menu{
+    position: absolute;
+    font-size: 17px;
+  top: 5px;
+  right: 120px;
+}
+
+#menu2{
+    position: absolute;
+  font-size: 17px;
+  top: 5px;
+  right: 20px;
+}
 </style>
 <body>
     <div id="app">
@@ -47,16 +60,16 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item" id="menu">
                                 <a style="color:#fff" class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item" id="menu2">
                                     <a style="color:#fff" class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" id="menu">
                                 <a style="color:#fff" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} 
                                     @if (Auth::user()->is_admin == true)

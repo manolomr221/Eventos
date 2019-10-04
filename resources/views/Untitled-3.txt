@@ -47,10 +47,8 @@
                                 <th>descripcion</th>
                                 <th>fecha</th>
                                 <th>categoria</th>
-                                <th>lugar</th>
-                                <th>costo</th>
                                 <th>Eliminarr</th>
-                                <th>Editar</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -63,8 +61,6 @@
                                     <th>{{$evento->descripcion}}</th>
                                     <th>{{$evento->fecha}}</th>
                                     <th>{{$evento->categoria}}</th>
-                                    <th>{{$evento->lugar}}</th>
-                                    <th>{{$evento->costo}}</th>
                                     <th><i class="fa fa-trash" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:red"></i></th>
                                     <th><i class="fa fa-pencil-square" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:orange"></i></th>
                                 </tr>
@@ -82,7 +78,7 @@
                                     <th>fecha</th>
                                     <th>categoria</th>
                                     <th>Eliminarr</th>
-                                    <th>Editar</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>

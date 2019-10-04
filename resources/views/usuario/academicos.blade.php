@@ -36,22 +36,33 @@
                     </div>
                 </div>
                 <br>
-
+<!-- modal seguridad eliminar evento-->
+<div class="modal fade" id="eliminarEvento" tabindex="-1" role="dialog" aria-labelledby="Eliminar Evento">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+           <p class="lead" style="text-align:center;">¿Estas seguro de eliminar éste Evento?</p>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="" id="eliminarEvento">
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-danger" style="width:240px;">SI</button>
+        </form>
+        <button type="button" class="btn btn-success" style="width:50%;" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
                 <div style="background:none"  class="row" id="datos">
                     @if (count($eventos))
                         <table class="table table-striped">
                             <thead>  
                             <tr>
                                 <th>#</th>
+                                <th>Foto</th>
                                 <th>nombre</th>
-                                <th>descripcion</th>
                                 <th>fecha</th>
-                                <th>categoria</th>
-                                <th>lugar</th>
-                                <th>costo</th>
-                                <th>Eliminarr</th>
-                                <th>Editar</th>
-                                <th></th>
+                               
                             </tr>
                             </thead>
                         <tbody>
@@ -59,14 +70,12 @@
                             @foreach($eventos as $evento)
                                 <tr>
                                     <th>{{$evento->id}}</th>
+                                    <th> <a href="/comecaca"> <img style="height:120px; width:100px" src="/uploads/{{$evento->foto}}" alt="{{$evento->nombre}}" style="width:100%;"></a></th>
                                     <th>{{$evento->nombre}}</th>
-                                    <th>{{$evento->descripcion}}</th>
                                     <th>{{$evento->fecha}}</th>
-                                    <th>{{$evento->categoria}}</th>
-                                    <th>{{$evento->lugar}}</th>
-                                    <th>{{$evento->costo}}</th>
-                                    <th><i class="fa fa-trash" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:red"></i></th>
-                                    <th><i class="fa fa-pencil-square" aria-hidden="true" value="{{$evento->id}}" style="font-size:48px;color:orange"></i></th>
+                                   
+                                
+                                   <br> <br>
                                 </tr>
                             @endforeach
                             
@@ -82,7 +91,7 @@
                                     <th>fecha</th>
                                     <th>categoria</th>
                                     <th>Eliminarr</th>
-                                    <th>Editar</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -101,39 +110,13 @@
     </div>
 </div>
 
-<!-- modal seguridad eliminar evento-->
-<div class="modal fade" id="eliminarEvento" tabindex="-1" role="dialog" aria-labelledby="Eliminar Evento">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-           <p class="lead" style="text-align:center;">¿Estas seguro de eliminar éste Evento?</p>
-      </div>
-      <div class="modal-footer">
-        <form method="POST" action="" id="eliminarEvento">
-            {{ csrf_field() }}
-            <button type="submit" class="btn btn-danger" style="width:240px;">SI</button>
-        </form>
-        <button type="button" class="btn btn-success" style="width:50%;" data-dismiss="modal">NO</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<script src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+
+
 
 <script>
- $(document).ready(function(){
-        $('i.fa-pencil-square').click(function(){
-           window.location.href = '/Admin/evento/'+$(this).attr('value')+'/editar';
-        });
-         $('i.fa-trash').click(function(){
-           
-           $('#eliminarEvento').modal('show');
-           $('form#eliminarEvento').attr('action','/Admin/evento/'+$(this).attr('value')+'/eliminar');
-         });
-    });
-
 
 
     window.addEventListener('load',function(){

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'AdminController@welcome')->name('inicio');
 
 Auth::routes();
 
@@ -33,3 +31,15 @@ Route::post('/Admin/evento/{id}/eliminar', 'AdminController@eliminarEvento')->mi
 Route::get('/Admin/evento/{id}/editar','AdminController@editarEvento')->middleware('Administrador');
 Route::post('/Admin/evento/{id}/guardarCambios','AdminController@guardarCambiosEvento')->middleware('Administrador');
 
+//guardar imagen
+Route::post('/configuracion/{id}/guardarImagen','HomeController@guardarImagen');
+
+//ultimo agregado
+Route::get('eventos/paginacion', 'AdminController@paginacion');
+Route::get('eventos/buscador','AdminController@buscador');
+
+Route::get('eventos/buscador','AdminController@buscador');
+
+Route::get('/Academicos','AdminController@eventosAcademicos');
+
+Route::get('/evento/{id}/ver','AdminController@verEvento')->middleware('Administrador');
