@@ -5,29 +5,20 @@
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style>
-    @import url('http://fonts.googleapis.com/css?family=Julius+Sans+One');
-    @import url('https://fonts.googleapis.com/css?family=Anton');
-    body{
-        padding: 0;
-        margin: 0;
-    }
-    .margen{
-        padding: 0;
-        margin: 0;
-    }
-    .title{
-        font-size: 20px;
-    }
-</style>
 
-<div id="tour" class="bg-1">
-  <div  class="container">
-    <div class="col-md-12">
+<div class="container-fluid" >
+  <div  class="row" style="height:650px;">
+  <div class=" col-md-2 sidebar"    style="background-image: url('https://i.pinimg.com/originals/59/71/b6/5971b6ff0f900f92d27a64cec0c7f2ab.jpg')">
+        <ul class="nav ">
+        <li  ><a style="margin-top:30px; font-size:18px; color:white" href="{{ url('/home') }}">Registrar Evento</a></li>
+        <li ><a style="margin-top:20px; font-size:17px; color:white" href="{{ url('/eventos') }}">Eventos Registrados</a></li>
+        </ul>   
+    </div>
+    <div class="col-md-4" style="">
         <div class="text-center title">Eventos</div>
-            <div  style="background:" class="col-md-10 offset-md-1">
+            <div  style="background:" class="col-md-10 ">
                 <div>
-                    <div class="col-10">
+                    <div class="col-md-12">
                         <div class="input-group">
                             <input type="text" class="form-control" id="texto" placeholder="Ingrese nombre">
                             <div class="input-group-append"><span class="input-group-text">Buscar</span></div>

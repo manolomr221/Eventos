@@ -80,7 +80,23 @@ class AdminController extends Controller
     }    
     public function guardarCambiosEvento(Request $request, $id)
     {
-        if($request->fechaNueva == null || $request->fechaNueva == "")
+        if($request->hasFile('foto')){
+            $file = $request->file('foto');
+            $namefile= time().$file->getClientOriginalName();
+            $file->move(public_path().'/uploads/',$namefile);
+
+            DB::table('eventos')->where('id',$id)->update([
+                'nombre' => $request->nombre,
+                'descripcion'  => $request->descripcion,
+                'fecha' => $request->fecha,
+                'foto' => $namefile,
+                'categoria'   => $request->categoria,
+                'lugar' => $request->lugar,
+                'costo' => $request->costo,
+                ]);
+                $evento = DB::table('eventos')->select('*')->where('id',$id)->first();
+                return redirect()->action('AdminController@eventos');
+        }else
         {
             DB::table('eventos')->where('id',$id)->update([
                 'nombre' => $request->nombre,
@@ -93,19 +109,8 @@ class AdminController extends Controller
                 $evento = DB::table('eventos')->select('*')->where('id',$id)->first();
                 return redirect()->action('AdminController@eventos');
         }
-        else
-        {
-            DB::table('eventos')->where('id',$id)->update([
-                'nombre' => $request->nombre,
-                'descripcion'  => $request->descripcion,
-                'fecha' => $request->fechaNueva,
-                'categoria'   => $request->categoria,
-                'lugar' => $request->lugar,
-                'costo' => $request->costo,
-                ]);
-                $evento = DB::table('eventos')->select('*')->where('id',$id)->first();
-                return redirect()->action('AdminController@eventos');
-        }    
+
+     
     }
 
     public function guardarImagen(Request $request, $id)
@@ -166,13 +171,18 @@ class AdminController extends Controller
     }
      
     public function welcome(){
-        $eventos = DB::table('eventos')->orderBy('fecha', 'desc')
+   
+        $dia=date('Y-m-d', time());
+      //  echo " el puto dia es: $dia";
+     //$eventos = DB::table('eventos')->orderBy('fecha', 'desc')
+     $eventos = DB::table('eventos')->where('fecha',$dia)
         ->get();
        return view('welcome',['eventos'=>$eventos]);
     }
 
     public function eventosAcademicos(){
-        $eventos = DB::table('eventos')->where('categoria','academico')->get();
+      //  $eventos = DB::table('eventos')->where('categoria','academico')->get();
+        $eventos = DB::table('eventos')->where('categoria','academico')->paginate(3);
        return view('/usuario/academicos',['eventos'=>$eventos]);
     }
 
@@ -181,6 +191,9 @@ class AdminController extends Controller
        $evento= DB::table('eventos')->select('*')->where('id', $id)->first();    
        return view('/usuario/verEvento')->with('eventos',$evento);      
    }    
-
+   public function eventosCulturales(){
+    $eventos = DB::table('eventos')->where('categoria','cultural')->get();
+   return view('/usuario/culturales',['eventos'=>$eventos]);
+}
 
 }

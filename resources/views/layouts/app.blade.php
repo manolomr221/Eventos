@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
  
 <!--Font Awesome (added because you use icons in your prepend/append)-->
-<link rel="stylesheet" href="/css/bootstrap.min.css" />
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <style>
@@ -29,10 +29,16 @@
     position: absolute;
     font-size: 17px;
   top: 5px;
-  right: 120px;
+  right: 200px;
 }
 
 #menu2{
+    position: absolute;
+  font-size: 17px;
+  top: 5px;
+  right: 30px;
+}
+#menuAdmin{
     position: absolute;
   font-size: 17px;
   top: 5px;
@@ -41,7 +47,7 @@
 </style>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel " id="nav">
+        <nav class="navbar-expand-md navbar-light navbar-laravel " id="nav">
             <div class="container">
                 <a style="color:#fff" class="navbar-brand" href="{{ url('/') }}">
                     Eventop
@@ -61,16 +67,17 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item" id="menu">
-                                <a style="color:#fff" class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a style="color:#fff" class="nav-link" href="{{ url('/Academicos') }}">{{ __('Eventos Academicos') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item" id="menu2">
-                                    <a style="color:#fff" class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <li class="nav-item" id="menu2">
+                                    <a style="color:#fff" class="nav-link" href="{{ url('/Culturales') }}">{{ __('Eventos Culturales') }}</a>
                                 </li>
+                            @if (Route::has('register'))
+                               
                             @endif
                         @else
-                            <li class="nav-item dropdown" id="menu">
-                                <a style="color:#fff" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <li class="nav-item dropdown" id="menuAdmin">
+                                <a style="color:#fff" id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} 
                                     @if (Auth::user()->is_admin == true)
                             [Admin]
@@ -96,9 +103,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main >
             @yield('content')
         </main>
+        
     </div>
 </body>
 </html>

@@ -15,7 +15,9 @@ Route::get('/', 'AdminController@welcome')->name('inicio');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function(){
+    return view('/Admin/crearEvento');
+} )->middleware('Administrador');
 
 Route::get('/Admin/registrar', function(){
     return view('/Admin/crearEvento');
@@ -41,5 +43,6 @@ Route::get('eventos/buscador','AdminController@buscador');
 Route::get('eventos/buscador','AdminController@buscador');
 
 Route::get('/Academicos','AdminController@eventosAcademicos');
+Route::get('/Culturales','AdminController@eventosCulturales');
 
-Route::get('/evento/{id}/ver','AdminController@verEvento')->middleware('Administrador');
+Route::get('/evento/{id}/ver','AdminController@verEvento');

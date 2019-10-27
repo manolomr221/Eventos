@@ -50,12 +50,12 @@ img{
           </a>
           <div class="portfolio-caption">
             <p  class="portafolio-text">{{$evento->nombre}}</p>
-            <p class="text-muted">{{$evento->descripcion}}</p>
+            <p class="text-muted" style="word-wrap: break-word;">{{$evento->descripcion}}</p>
           </div>
           <br>
         </div>
           <!-- Modal -->
-  <div class="portfolio-modal modal fade"  style="background-image:url('http://vinculacion.cs.buap.mx/wp-content/uploads/2017/06/8.jpg');background-position: center;" id="evento{{$evento->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="portfolio-modal modal fade"  style="background-image:url('http://vinculacion.cs.buap.mx/wp-content/uploads/2017/06/8.jpg');background-position: center;" id="evento{{$evento->id}}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" >
       <div class="modal-content" style="background:#e0ebeb">
         <div class="close-modal" data-dismiss="modal">
@@ -104,11 +104,8 @@ img{
           </div>
         </div>
         @endif
-       
       </div>
-      <div class="row col-md-12" style="background: red;">    {{ $eventos->links() }} </div>
     </div>
-     
   </section>
 
   <script src="/vendor/jquery/jquery.min.js"></script>
@@ -133,11 +130,11 @@ window.addEventListener('load',function(){
            }
         else
            {
-            if((document.getElementById("texto").value.length) == 0 || document.getElementById("texto").value ===""){
+            if((document.getElementById("texto").value.length)==0 || document.getElementById("texto").value ===""){
              document.getElementById("datos").style.display=""
             document.getElementById("resultados").innerHTML = "";
             }
-            document.getElementById("resultados").innerHTML = $reg
+            //document.getElementById("resultados").innerHTML = $reg
            }
     })
 });  

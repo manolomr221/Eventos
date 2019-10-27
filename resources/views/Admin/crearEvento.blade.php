@@ -1,24 +1,22 @@
 @extends('layouts.app')
-
 @section('content')
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
- 
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 
-<section id="content">
-   
-
-    
-    <div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-primary">
+    <div class="container-fluid" >
+      <div class="row">
+        <div class=" col-md-2 sidebar"    style="background-image: url('https://i.pinimg.com/originals/7b/b5/1b/7bb51b73896ba29e6a76d6e3faf3f290.jpg')">
+          
+          <ul class="nav ">
+          <li  ><a style="margin-top:30px; font-size:18px; color:white" href="{{ url('/home') }}">Registrar Evento</a></li>
+          <li ><a style="margin-top:20px; font-size:17px; color:white" href="{{ url('/eventos') }}">Eventos Registrados</a></li>
+        
+          </ul>
+         
+        </div>
+        <div class="col-md-8 offset-md-1 " >
+         <div class="offset-md-">
+             <br>
+         <div class="panel panel-primary">
                 <div class="panel-heading text-center">
                    Crear Evento
                 </div>
@@ -40,7 +38,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Fecha</label>
                             <div class="col-sm-10">
-                            <input type="datetime-local" class="form-control" name="fecha" >
+                            <input type="date"  class="form-control" name="fecha" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,7 +50,12 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">categoria</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" name="categoria" >
+                         <!--   <input type="text" class="form-control" name="categoria" > -->
+                                <select required class="form-control" name="categoria">
+                                <option value="">Selecciona una categoria</option> 
+                                <option value="academico" >academico</option>
+                                <option value="cultural">cultural</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -67,9 +70,7 @@
                             <input type="number" class="form-control" name="costo" >
                             </div>
                         </div>
-                      
-                        
-                        
+
                         
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
@@ -80,8 +81,15 @@
                 </div>
             </div>
         </div>
+         </div>
+      </div>
     </div>
-</div>
-  </section>
+
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   
+    <script src="/js/bootstrap.min.js"></script>
+    
+
 
 @endsection

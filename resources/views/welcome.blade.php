@@ -1,123 +1,103 @@
-
 @extends('layouts.app')
-
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Theme Template for Bootstrap</title>
-
-
-<!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-
-<!-- Inline CSS based on choices in "Settings" tab -->
-<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
-
-
-</head>
-
-  <body>
- 
-  <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-        <div class="bootstrap-iso">
- <div class="container-fluid">
-  <div class="row">
-   <div class="col-md-6 col-sm-6 col-xs-12">
-    <form action="https://formden.com/post/MlKtmY4x/" class="form-horizontal" method="post">
-     <div class="form-group ">
-      <label class="control-label col-sm-2 requiredField" for="date">
-       Date
-       <span class="asteriskField">
-        *
-       </span>
-      </label>
-      <div class="col-sm-10">
-       <div class="input-group">
-        <div class="input-group-addon">
-         <i class="fa fa-calendar">
-         </i>
-        </div>
-        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
-       </div>
-      </div>
-     </div>
-     <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-       <input name="_honey" style="display:none" type="text"/>
-       <button class="btn btn-primary " name="submit" type="submit">
-        Submit
-       </button>
-      </div>
-     </div>
-    </form>
-   </div>
-  </div>
- </div>
-</div>
-
-        </div>
-
-        <div class="col-md-9">
-
-        <h2 class="text-center">Eventos</h2>  
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="/imagenes/1.png" alt="Los Angeles" style="width:900px; height:600px;">
-      </div>
-
-       @foreach($eventos as $evento)
-      <div class="item" >
-       <a href="/comecaca"> <center> <img  src="/uploads/{{$evento->foto}}" alt="{{$evento->nombre}}" style="width:820px; height:600px;"></center></a>
-      </div>
-      @endforeach
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-        </div>
-      </div>
-  </div>
-
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/vanilla-calendar.css" />
+    <script  type="text/javascript" src="/js/vanilla-calendar.js"> </script>
     <script src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+   <style>
+    .contenedor
+      {
+          position: relative;
+          display: inline-block;
+          text-align: center;
+      }
+      .texto-encima
+      {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+      }
+   </style>   
+  <div class="container all" style="background: none">
+    <div class="row" style="background: none">
+      <div class="col-md-4" style="background: none">
+        <h2 style="font-size:20px; text-align:center">Fecha acutal</h2>
+        <div id="myCalendar" class="vanilla-calendar" style="margin-bottom: 20px"></div>
+      </div>
+      <div class="col-md-8" style="background: none; width:100%;">
+        <h2 style="text-align:center">Eventos para hoy:</h2>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+          
+            <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+         
+            
+          @if(count($eventos))
+          <div class="item active">
+           
+           <a > <center> <img  src="http://www.buap.mx/sites/default/files/styles/slider_general/public/slider-carbonesact.png?itok=x2ueVXoy"style="width:100%; height:500px;"></center></a>
+           <div class="carousel-caption">
+               <h3 style="color:red">Bienvenido</h3>
+               <p style="color:red">Estos son los eventos del dia</p>
+           </div>
+       </div>
+            @foreach($eventos as $evento)
+            
+            <div class="item">
+            <div class="carousel-caption">
+                  <h3 style="color:black">{{$evento->nombre}}</h3>
+                  <p>{{$evento->lugar}}</p>
+              </div>
+              <a href="/evento/{{$evento->id}}/ver"> <center> <img  src="/uploads/{{$evento->foto}}" alt="{{$evento->nombre}}" style="width:100%; height:500px;"></center></a>
+              
+            </div>
+            @endforeach
+            @else
+            <div class="item active">
+              <a > <center> <img  src="https://cdn.dribbble.com/users/1676373/screenshots/4177728/404.gif"  style="width:100%; height:500px;"></center></a>
+              <div class="carousel-caption">
+                  <h3 style="color:white">No hay eventos para este dia</h3>
+                
+              </div>
+            </div>
+           
+            @endif
 
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
+          </div>
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div> <!-- fin carrousel -->
+      </div>
+    </div>
+</div>
+<script src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
-	$(document).ready(function(){
-		var date_input=$('input[name="date"]'); //our date input has the name "date"
-		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-	
-	})
+      let pastDates = true, availableDates = false, availableWeekDays = false
+      let calendar = new VanillaCalendar
+      ({
+          selector: "#myCalendar",
+          months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+          shortWeekday: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb'],
+          onSelect: (data, elem) => 
+          {
+              console.log(data, elem)
+          }
+      })          
 </script>
-
-  </body>
-</html>
-
-  
 @endsection
